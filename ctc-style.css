@@ -1,0 +1,103 @@
+/*
+CTC Separate Stylesheet
+Updated: 2023-05-14 16:47:38
+*/
+
+:root {
+    --bulldog-blue: #003DA5;
+    --evening-blue: #0076A5;
+    --sky-blue: #4298B5;
+    --bright-blue: #71B2C9;
+    --morning-blue: #AFCDD7;
+    --daybreak-blue: #C6D6E3;
+    --light-blue: #D1DDE6;
+    --forest: #7F9C90;
+    --river: #3F6C7D;
+    --night-sky: #003865;
+    --frost-gray: #D9D9D6;
+    --steel-gray: #C8C9C7;
+    --stone-gray: #888B8D;
+    --dark-gray: #5b5d5e;
+    --honeybee: #EBBC4E;
+    --autumn: #E6A65D;
+    --clay: #C26E60;
+    --gold: #BD9B60;
+    --chestnut: #7C4D3A;
+    --maple: #A6192E;
+    --banner-text-color: white;
+    --banner-bg-color: var(--night-sky);
+    --link-color: var(--maple);
+    --banner-one-height: 50px;
+    --banner-two-height: 120px;
+    --banner-two-height-mobile: 70px;
+    --main-margin: 170px;
+    --main-margin-mobile: 70px;
+    --bg-img2: url(https://png.pngtree.com/background/20210714/original/pngtree-vector-abstract-futuristic-digital-landscape-with-particles-dots-and-stars-on-picture-image_1240800.jpg);
+}
+
+.page .entry-content, .page .entry-header .inner-wrap, .page:not(.inspiro-front-page) .entry-footer, .single .entry-content, .single .entry-footer, .single .entry-header .inner-wrap {
+    margin: 0 auto;
+}
+
+#unca {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    z-index: 100;
+    /* position: fixed; */
+    width: 100%;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bulldog-blue);
+    height: var(--banner-one-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.unca-logo {
+    height: 70%;
+    width: auto;
+}
+
+.navbar {
+    padding: 0;
+}
+
+.has-header-image.home.blog .headroom--not-top .navbar, 
+.has-header-image.inspiro-front-page .headroom--not-top .navbar, 
+.has-header-video.home.blog .headroom--not-top .navbar, 
+.has-header-video.inspiro-front-page .headroom--not-top .navbar {
+    padding: 0;
+}
+
+.navbar {
+    height: 150px;
+}
+.site-main {
+    margin-top: 105px;
+}
+
+.site-main {
+    margin-top: 150px;
+}
+
+.has-header-image .navbar, .has-header-video .navbar {
+    background-color: var(--night-sky);
+    background-image: none;
+}
+
+.header-inner.inner-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+
+/**********/
+/* Footer */
+/**********/
+
+.nav-link {
+    margin-left: 30px;
+}
