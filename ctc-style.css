@@ -1,3 +1,4 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css');
 /*
 CTC Separate Stylesheet
 Updated: 2023-05-14 16:47:38
@@ -100,4 +101,51 @@ Updated: 2023-05-14 16:47:38
 
 .nav-link {
     margin-left: 30px;
+}
+
+/* People */
+.faculty-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+.faculty-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 20px;
+    row-gap: 5px;
+    background-color: #F0F0F0;
+    padding: 20px;
+}
+
+.faculty-card .span-2 {
+    grid-column: 1 / span 2;
+}
+.faculty-card img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.faculty-card p {
+    line-height: 1.4em;
+    margin: 0 0 3px 0;
+}
+
+.faculty-card h2 {
+    font-weight: 400;
+    font-size: 1.4em;
+    color: var(--night-sky);
+    margin-bottom: 6px;
+}
+.faculty-card .meta {
+    margin-left: 20px;
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 20px auto;
+    justify-content: flex-start;
+    align-items: center;
+}
+.elementor-widget-wrap {
+    align-content: stretch;
 }
