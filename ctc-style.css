@@ -235,7 +235,7 @@ body:not(.has-header-image) .site-main,
 }
 
 .people-thumb {
-    border-radius: 50%;
+    border-radius: 50% !important;
     margin: 0 auto;
     height: 250px;
     width: 250px;

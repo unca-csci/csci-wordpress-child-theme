@@ -24,20 +24,6 @@ add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
 // END ENQUEUE PARENT ACTION
 
 
-// add_shortcode('field', 'shortcode_field');
-// function shortcode_field($atts) {
-//     return get_the_ID();
-//     // global $post;
-//     // return get_post_meta( $post->ID, 'phone_number', true );
-//     //  extract(shortcode_atts(array(
-//     //               'post_id' => NULL,
-//     //            ), $atts));
-//     // if(!isset($atts[0])) return;
-//     // $field = esc_attr($atts[0]);
-//     // global $post;
-//     // $post_id = (NULL === $post_id) ? $post->ID : $post_id;
-//     // return get_post_meta($post_id, $field, true);
-// }
 
 function getContactInfo($post_id) {
     $html = '<div class="contact-info">';
@@ -214,9 +200,9 @@ function shortcode_faculty_card_list() {
     
     window.showLightbox = async postID => {
         const lightboxEl = document.querySelector("#lightbox");
-        const html = await fetch(`/wp-json/wp/v2/people/${postID}`)
+        const html = await fetch(`/wp-json/wp/v2/people/${postID}?_embed`)
             .then(response => response.json());
-        lightboxEl.querySelector(".content").innerHTML = JSON.stringify(html, null, 4);
+        lightboxEl.querySelector(".content").innerHTML = showInfo(html);
         lightboxEl.classList.add("show");
         document.body.style.overflowY = "hidden";
         lightboxEl.querySelector("#close").focus();
@@ -243,6 +229,50 @@ function shortcode_faculty_card_list() {
         lightboxEl.classList.remove("show");
         document.body.style.overflowY = "scroll";
     };
+
+    function showInfo(data) {
+        console.log(data);
+        let html = `
+            <h2 class="person-header">${data.title.rendered}</h2>
+            ${getFeaturedImage(data)}
+            <h3>${data.acf.title}</h3>
+            ${getContactInfo(data)}
+        `;
+        return html;
+    }
+
+    function getFeaturedImage(data) {
+        if (data._embedded && data._embedded["wp:featuredmedia"] && data._embedded["wp:featuredmedia"].length > 0) {
+            return `<img class="people-thumb" src="${data._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url}" />`;
+        }
+        return "";
+    }
+
+    function getContactInfo(data) {
+        let html = `<div class="contact-info">`;
+        if (data.acf.phone_number) {
+            html += `
+                <div class="meta">
+                    <i class="fa-solid fa-phone"></i>
+                    ${data.acf.phone_number}
+                </div>`;
+        } 
+        if (data.acf.email) {
+            html += `
+                <div class="meta">
+                    <i class="fa-regular fa-envelope"></i>
+                    ${data.acf.email}
+                </div>`;
+        } 
+        if (data.acf.address) {
+            html += `
+                <div class="meta">
+                <i class="fa-solid fa-location-dot"></i>
+                    ${data.acf.address}
+                </div>`;
+        } 
+        return html;
+    }
     </script>';
 }
 
