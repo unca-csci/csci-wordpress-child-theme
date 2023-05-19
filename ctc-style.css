@@ -82,20 +82,46 @@ Updated: 2023-05-14 16:47:38
 .navbar {
     height: 150px;
 }
-.site-main {
+
+/****************************/
+/* Side Navigation (Mobile) */
+/****************************/
+.side-nav__scrollable-container {
+    background-color: var(--night-sky);
+}
+
+/* body:not(.has-header-image) #page {
+    top: -150px;
+} */
+@media screen and (max-width: 64em) {
+    .colors-custom .navbar-nav>li.current-menu-item>a, .colors-custom .navbar-nav>li.current-menu-parent>a, .colors-custom .navbar-nav>li.current_page_item>a {
+        color: white !important;
+        border-left: solid 3px #fff !important;
+        padding-left: 10px;
+    }
+}
+
+body:not(.has-header-image) .site-main {
     margin-top: 105px;
 }
 
-.site-main {
+body:not(.has-header-image) .site-main,
+.has-header-image .site-content-contain  {
     margin-top: 150px;
 }
-.has-header-image .person-template.site-main {
-    /* margin-top: -150px; */
-    margin-top: 0px;
+
+.has-header-image.side-nav-open .site,
+.has-header-image.side-nav-transitioning .site {
+    /* transform: translateY(-150px); */
+    margin-top: -150px;
 }
-.has-header-image .site-content-contain {
-    margin-top: 150px;
-}
+
+/* body.side-nav-open .site {
+    z-index: 300;
+    transform: translateX(-380px);
+    margin-top: -150px;
+} */
+
 .has-header-image .navbar, .has-header-video .navbar {
     background-color: var(--night-sky);
     background-image: none;

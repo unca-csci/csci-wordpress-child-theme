@@ -82,7 +82,7 @@ function shortcode_faculty_card($atts) {
     $html = $html . 
         '<div>' .
             '<h2>' .
-                get_post_meta($post_id, 'name', true) . 
+                get_the_title() .
             '</h2>' .
             '<p class="title">' .
                 get_post_meta($post_id, 'title', true) . 
@@ -106,8 +106,9 @@ function shortcode_faculty_card($atts) {
     // row 3: 
     $html = $html . 
         '<p class="span-2">' .
-            '<a class="more-link" href="' . get_permalink($post) . '">More</a>' .
-            // '<a class="more-link" href="/wp-json/wp/v2/people/' . $post->ID . '">More</a>' .
+            // '<a class="more-link" href="' . get_permalink($post) . '">More</a>' .
+            // '<a class="more-link" href="/wp-json/wp/v2/people/' . $post->ID .
+            '<button class="more-link" onclick="showLightbox(' . $post->ID . ')">More</button>' . 
         '</p>';
     $html = $html . '</div>';
     return $html;
@@ -134,7 +135,115 @@ function shortcode_faculty_card_list() {
 
     return '<div class="faculty-list">' . 
         implode( '', $html_elements ) . 
-    '</div>';
+    '</div>' . 
+    '<section class="" id="lightbox" onclick="hideLightbox(event)">
+        <button id="close" class="close" onclick="hideLightbox(event)">
+            <i id="close-icon" class="fas fa-times"></i>
+        </button>
+        <div class="content"></div>
+    </section>
+    <style>
+    #lightbox {
+        box-sizing: border-box;
+        min-height: 100vh;
+        position: fixed;
+        top: 0;
+        left: -100vw;
+        width: 100vw;
+        height: 100vh;
+        overflow-y: scroll;
+        z-index: 2000000;
+        background-color: rgba(50, 50, 50, 0.9);
+    }
+    
+    #lightbox .content {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 65vw;
+        min-height: 100vh;
+        padding: 50px;
+        background-color: rgba(255, 255, 255);
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        transition: all 0.2s ease-in;
+        margin-left: -65vw;
+    }
+    
+    #lightbox.show {
+        left: 0;
+    }
+    
+    #lightbox.show .content {
+        margin-left: 0vw;
+    }
+    
+    #lightbox .close {
+        align-self: flex-end;
+        background: transparent;
+        border: none;
+        font-size: 30px;
+        cursor: pointer;
+        position: absolute;
+        right: 35vw;
+        top: 0px;
+    }
+    #lightbox.show .close {
+        transition: all 0.2s ease-in;
+    }
+    @media screen and (max-width: 1000px) {
+        #lightbox .content {
+            margin-left: 0vw;
+            width: 100%;
+            padding: 20px;
+        }
+    
+        #lightbox.show .close {
+            transition: none;
+            top: 0px;
+            right: 0;
+        }
+    }
+    </style>
+    
+    <script>
+    delete window.showLightbox;
+    delete window.showLightboxFaculty;
+    delete window.hideLightbox;
+    
+    
+    window.showLightbox = async postID => {
+        const lightboxEl = document.querySelector("#lightbox");
+        const html = await fetch(`/wp-json/wp/v2/people/${postID}`)
+            .then(response => response.json());
+        lightboxEl.querySelector(".content").innerHTML = JSON.stringify(html, null, 4);
+        lightboxEl.classList.add("show");
+        document.body.style.overflowY = "hidden";
+        lightboxEl.querySelector("#close").focus();
+        lightboxEl.classList.remove("people-detail");
+    };
+    
+    window.showLightboxPeople = async fileName => {
+        await window.showLightbox(fileName);
+        const lightboxEl = document.querySelector("#lightbox");
+        lightboxEl.classList.add("people-detail");
+    };
+    
+    window.hideLightbox = ev => {
+        const classList = ev.target.classList;
+        let doClose = false;
+        classList.forEach(className => {
+            if (["fa-times", "close", "close-icon", "show"].includes(className)) {
+                doClose = true;
+                return;
+            }
+        })
+        if (!doClose) {return};
+        const lightboxEl = document.querySelector("#lightbox");
+        lightboxEl.classList.remove("show");
+        document.body.style.overflowY = "scroll";
+    };
+    </script>';
 }
 
 
