@@ -39,54 +39,89 @@ add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
 //     // return get_post_meta($post_id, $field, true);
 // }
 
+function getContactInfo($post_id) {
+    $html = '<div class="contact-info">';
+    if ( get_post_meta($post_id, 'phone_number', true) != '') {
+        $html = $html . 
+            '<div class="meta">' .
+                '<i class="fa-solid fa-phone"></i>  ' . 
+                get_post_meta($post_id, 'phone_number', true) . 
+            '</div>';
+    } 
+    if ( get_post_meta($post_id, 'address', true) != '') {
+        $html = $html . 
+            '<div class="meta">' .
+                '<i class="fa-solid fa-location-dot"></i> ' . 
+                get_post_meta($post_id, 'address', true) . 
+            '</div>';
+    }
+    if ( get_post_meta($post_id, 'email', true) != '') {
+        $html = $html . 
+            '<div class="meta">' .
+                '<i class="fa-regular fa-envelope"></i> ' . 
+                get_post_meta($post_id, 'email', true) . 
+            '</div>';
+    }
+    $html = $html . '</div>';
+    return $html;
+}
+
 add_shortcode('faculty_card', 'shortcode_faculty_card');
 function shortcode_faculty_card($atts) {
-    // return get_the_ID();
-    // global $post;
-    // return get_post_meta( $post->ID, 'phone_number', true );
     extract(shortcode_atts(array(
             'post_id' => NULL,
         ), $atts)
     );
-    // if(!isset($atts[0])) return;
-    // $field = esc_attr($atts[0]);
     global $post;
     $post_id = (NULL === $post_id) ? $post->ID : $post_id;
-    return '<div class="faculty-card">' . 
+    
+    
+    $html = '<div class="faculty-card">';
+
+    // row 1a:
+    $html = $html . 
         '<div>' .
             '<h2>' .
                 get_post_meta($post_id, 'name', true) . 
             '</h2>' .
-            '<p>' .
+            '<p class="title">' .
                 get_post_meta($post_id, 'title', true) . 
-            '</p>' .
-            '<div class="meta">' .
-                '<i class="fa-solid fa-phone"></i>  ' . 
-                get_post_meta($post_id, 'phone_number', true) . 
-            '</div>' .
-            '<div class="meta">' .
-                '<i class="fa-solid fa-location-dot"></i> ' . 
-                get_post_meta($post_id, 'address', true) . 
-            '</div>' .
-            '<div class="meta">' .
-                '<i class="fa-regular fa-envelope"></i> ' . 
-                get_post_meta($post_id, 'email', true) . 
-            '</div>' .
-        '</div>' .
-        get_the_post_thumbnail( $post_id, 'small' ) .
+            '</p>';
+    $html = $html . getContactInfo($post_id);
+   
+    $html = $html . '</div>';
+
+    // row 1b:
+    if ( has_post_thumbnail()) {
+        $html = $html . get_the_post_thumbnail( $post_id, 'small' );
+    } else {
+        $html = $html . '<div></div>'; 
+    }
+    
+    // row 2: 
+    $html = $html . '<p class="span-2 interests">' .
+        get_post_meta($post_id, 'interests', true) . 
+    '</p>';
+    
+    // row 3: 
+    $html = $html . 
         '<p class="span-2">' .
-            get_post_meta($post_id, 'interests', true) . 
-        '</p>' .
-    '</div>';
+            '<a class="more-link" href="' . get_permalink($post) . '">More</a>' .
+            // '<a class="more-link" href="/wp-json/wp/v2/people/' . $post->ID . '">More</a>' .
+        '</p>';
+    $html = $html . '</div>';
+    return $html;
 }
 
 add_shortcode('faculty_card_list', 'shortcode_faculty_card_list');
 function shortcode_faculty_card_list() {
     $args = array(
-        'post_type' => 'post'
+        'post_type' => 'person'
     );
 
     $post_query = new WP_Query($args);
+
+    // return $post_query->found_posts;
     $html_elements = array();
     if($post_query->have_posts() ) {
         while($post_query->have_posts() ) {

@@ -3,6 +3,14 @@
 CTC Separate Stylesheet
 Updated: 2023-05-14 16:47:38
 */
+.headroom--not-top .navbar {
+    background: rgba(0,0,0,.9);
+    padding: 0;
+}
+
+.no-blink {
+    width: 100vw !important;
+}
 
 :root {
     --bulldog-blue: #003DA5;
@@ -81,7 +89,13 @@ Updated: 2023-05-14 16:47:38
 .site-main {
     margin-top: 150px;
 }
-
+.has-header-image .person-template.site-main {
+    /* margin-top: -150px; */
+    margin-top: 0px;
+}
+.has-header-image .site-content-contain {
+    margin-top: 150px;
+}
 .has-header-image .navbar, .has-header-video .navbar {
     background-color: var(--night-sky);
     background-image: none;
@@ -94,6 +108,21 @@ Updated: 2023-05-14 16:47:38
     margin-top: 30px;
 }
 
+/**********/
+/* h2 {
+    color: var(--e-global-color-primary );
+    font-family: var(--e-global-typography-primary-font-family ), sans-serif;
+    font-weight: var(--e-global-typography-primary-font-weight );
+} */
+
+.entry-content h2 {
+    font-weight: 400;
+}
+
+.entry-content li {
+    list-style-position: outside;
+}
+
 
 /**********/
 /* Footer */
@@ -103,20 +132,27 @@ Updated: 2023-05-14 16:47:38
     margin-left: 30px;
 }
 
+.copyright {
+    color: white;
+}
+
+/**********/
 /* People */
+/**********/
 .faculty-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
-    row-gap: 20px;
+    column-gap: 30px;
+    row-gap: 30px;
 }
 .faculty-card {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto 45px;
     column-gap: 20px;
     row-gap: 5px;
-    background-color: #F0F0F0;
-    padding: 20px;
+    background-color: #F9F9F9;
+    padding: 15px;
 }
 
 .faculty-card .span-2 {
@@ -127,9 +163,13 @@ Updated: 2023-05-14 16:47:38
     width: 100%;
 }
 
+.faculty-card .more-link {
+    margin: 0;
+}
+
 .faculty-card p {
     line-height: 1.4em;
-    margin: 0 0 3px 0;
+    margin: 0 0 6px 0;
 }
 
 .faculty-card h2 {
@@ -138,14 +178,46 @@ Updated: 2023-05-14 16:47:38
     color: var(--night-sky);
     margin-bottom: 6px;
 }
-.faculty-card .meta {
+
+.faculty-card .title {
+    margin-bottom: 20px;
+}
+
+.contact-info {
     margin-left: 20px;
+}
+
+.meta {
     display: grid;
     column-gap: 10px;
     grid-template-columns: 20px auto;
     justify-content: flex-start;
     align-items: center;
 }
-.elementor-widget-wrap {
-    align-content: stretch;
+
+.faculty-card .meta {
+    line-height: 1.5em;
+    font-size: 0.95em;
+}
+
+.faculty-card .interests {
+    margin-top: 10px;
+}
+
+.person-header {
+    color: var(--night-sky);
+}
+
+.people-thumb {
+    border-radius: 50%;
+    margin: 0 auto;
+    height: 250px;
+    width: 250px;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .faculty-list {
+        grid-template-columns: 1fr;
+    }
 }
