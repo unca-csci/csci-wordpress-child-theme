@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Custom Faculty Template
+ * Template Name: Custom People Template
  * Template Post Type: post, page, product, person
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post

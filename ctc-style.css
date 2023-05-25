@@ -165,13 +165,13 @@ body:not(.has-header-image) .site-main,
 /**********/
 /* People */
 /**********/
-.faculty-list {
+.people-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 30px;
     row-gap: 30px;
 }
-.faculty-card {
+.people-card {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto auto 45px;
@@ -181,31 +181,31 @@ body:not(.has-header-image) .site-main,
     padding: 15px;
 }
 
-.faculty-card .span-2 {
+.people-card .span-2 {
     grid-column: 1 / span 2;
 }
-.faculty-card img {
+.people-card img {
     border-radius: 50%;
     width: 100%;
 }
 
-.faculty-card .more-link {
+.people-card .more-link {
     margin: 0;
 }
 
-.faculty-card p {
+.people-card p {
     line-height: 1.4em;
     margin: 0 0 6px 0;
 }
 
-.faculty-card h2 {
+.people-card h2 {
     font-weight: 400;
     font-size: 1.4em;
     color: var(--night-sky);
     margin-bottom: 6px;
 }
 
-.faculty-card .title {
+.people-card .title {
     margin-bottom: 20px;
 }
 
@@ -221,12 +221,12 @@ body:not(.has-header-image) .site-main,
     align-items: center;
 }
 
-.faculty-card .meta {
+.people-card .meta {
     line-height: 1.5em;
     font-size: 0.95em;
 }
 
-.faculty-card .interests {
+.people-card .interests {
     margin-top: 10px;
 }
 
@@ -241,9 +241,59 @@ body:not(.has-header-image) .site-main,
     width: 250px;
 }
 
+/*****************/
+/* Programs Page */
+/*****************/
+.entry-content {
+    min-height: 70vh;
+}
+
+@media screen and (min-width: 48em) {
+    .page-layout-sidebar-right.has-sidebar.programs .entry-wrapper .entry-content {
+        width: 66%;
+    }
+    .page-layout-sidebar-right.has-sidebar.programs #secondary {
+        width: 33%;
+        padding: 0 5vw 0 0;
+    }
+
+    .page-layout-sidebar-right.has-sidebar.programs .header-inner.inner-wrap {
+        max-width: 1200px;
+    }
+
+    .page-layout-sidebar-right.has-sidebar.programs #content .inner-wrap {
+        max-width: 100%;
+    }
+
+    .page-layout-sidebar-right.has-sidebar:not(.archive) #primary, .page-layout-sidebar-right.has-sidebar:not(.error404) #primary, 
+    .page-layout-sidebar-right.has-sidebar.programs #primary {
+        float: none;
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+    .page-layout-sidebar-right.has-sidebar.programs #secondary {
+        padding: 0 2vw 0 0;
+    }
+}
+
+.programs-submenu {
+    background: #F0F0F0;
+    padding: 30px;
+}
+
+.programs-submenu h2 {
+    margin-top: 0;
+    color: var(--e-global-color-primary );
+    font-family: var(--e-global-typography-primary-font-family ), Sans-serif;
+    font-weight: 600;
+    font-size: 1.5em;
+}
 
 @media screen and (max-width: 1000px) {
-    .faculty-list {
+    .people-list {
         grid-template-columns: 1fr;
     }
 }
