@@ -66,13 +66,13 @@ $cover_height = inspiro_get_theme_mod( 'cover-size' );
                         <a href="/our-programs">Our Programs</a>
                     </li>
                     <li>
-                        <a href="/our-programs/requirements">Courses & Requirements</a>
+                        <a href="/our-programs/requirements">Course Offerings</a>
                     </li>
                     <li>
                         <a href="/our-programs/schedule-of-classes">Schedule of Classes</a>
                     </li>
                     <li>
-                        <a href="/our-programs/sample-plans">Sample Course Schedules</a>
+                        <a href="/our-programs/sample-plans">Sample Course Plans</a>
                     </li>
                     <li>
                         <a href="/our-programs/about-the-capstone">About the Capstone</a>

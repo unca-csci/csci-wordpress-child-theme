@@ -3,6 +3,7 @@
 add_shortcode('schedule_of_classes', 'shortcode_schedule_of_classes');
 function shortcode_schedule_of_classes($atts) {
     $script_ref = '<script src="' . get_stylesheet_directory_uri() . '/assets/js/class-schedule.js"></script>';
+    $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/class-schedule.css">';
     return 
         '<select id="term">
             <option value="2023/fall/">Fall 2023</option>
@@ -19,7 +20,7 @@ function shortcode_schedule_of_classes($atts) {
             Loading...
         
         </div>
-        ' .  $script_ref;
+        ' .  $css_ref . "\r\n" . $script_ref;
 }
 
 ?>

@@ -44,12 +44,12 @@ window.CourseBrowser = class {
         for (let i = 0; i < courseList.length; i++) {
             const course = courseList[i];
             if (course.Department == "CSCI") {
-                const descUrl = 'https://meteor.unca.edu/registrar/class-schedules/api/v1/courses/description/';
-                let desc = await fetch(descUrl + termUrl + course.CRN + '/').then(response => response.text());
-                desc = desc.replaceAll("\"", "");
-                desc = desc.replaceAll("\\n", "");
-                desc = desc.replaceAll("\\r", "");
-                course.Description = desc;
+                // const descUrl = 'https://meteor.unca.edu/registrar/class-schedules/api/v1/courses/description/';
+                // let desc = await fetch(descUrl + termUrl + course.CRN + '/').then(response => response.text());
+                // desc = desc.replaceAll("\"", "");
+                // desc = desc.replaceAll("\\n", "");
+                // desc = desc.replaceAll("\\r", "");
+                // course.Description = desc;
                 // this.addToInventory(course);
                 this.displayCourse(course);
             }
@@ -88,21 +88,20 @@ window.CourseBrowser = class {
         const location = course.Location.FullLocation ? course.Location.FullLocation + " &bull;" : "";
         const template = `
             <section class="course">
-                <h2>${course.Code}: ${course.Title}</h2>
+                <h3>${course.Code}: ${course.Title}</h3>
                 <p>
                     ${closed ? '<i class="fa-solid fa-circle-xmark"></i> Closed' : '<i class="fa-solid fa-circle-check"></i> Open'} 
                     &bull; ${course.CRN}
                     &bull;  
                     ${!closed ? "Seats Available: " + spaceLeft : "Number on Waitlist " + numOnWaitlist}
-                </p>
-                <p>
-                    ${meets} ${startTime} - ${endTime} &bull; 
+                    &bull;
+                    <strong>${meets} ${startTime} - ${endTime}</strong> &bull; 
                     ${ location }
                     ${course.Hours} credit hour(s)
                 </p>
                 <p><strong>${instructor}</strong></p>
 
-                <p>${course.Description}</p>
+                <!-- <p>${course.Description}</p> -->
             </section>`;
         try {
             document.querySelector('#course-list').insertAdjacentHTML('beforeend', template);

@@ -1,6 +1,7 @@
 <?php
 
 require_once( __DIR__ . '/inc/functions-people.php');
+require_once( __DIR__ . '/inc/functions-cs-areas.php');
 require_once( __DIR__ . '/inc/functions-courses.php');
 
 
