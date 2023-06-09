@@ -15,7 +15,7 @@ function shortcode_cs_area_card($atts) {
     }
 
     return '
-        <section class="hci" style="' . $style . '" onclick="showLightbox(' . $post->ID . ')">
+        <section class="hci" style="' . $style . '" onclick="showArea(' . $post->ID . ')">
             <div class="overlay-box">
                 <h2>' . get_the_title() . '</h2>
             </div>
@@ -40,7 +40,7 @@ function shortcode_cs_area_card_list() {
         wp_reset_postdata();
     }
 
-    $script_ref = '<script src="' . get_stylesheet_directory_uri() . '/assets/js/cs-areas.js"></script>';
+    $script_ref = '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>';
     $css_refs = 
         '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/areas.css">' . 
         "\r\n" . 

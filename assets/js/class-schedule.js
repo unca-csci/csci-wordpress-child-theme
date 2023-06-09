@@ -5,14 +5,19 @@
  * the class and corresponding object.
  */
 
-delete window.CourseBrowser;
-delete window.browser;
+import showLightbox from './lightbox.js';
 
 window.CourseBrowser = class {
     courses = { };
 
     constructor () {
         document.querySelector('#term').addEventListener('change', this.fetchAndDisplay.bind(this));
+    }
+
+    async fetchWordpressCourses () {
+        const url = '/wp-json/wp/v2/courses?per_page=100';
+        const response = await fetch(url);
+        return await response.json();
     }
 
     async fetchCourses () {
@@ -24,8 +29,23 @@ window.CourseBrowser = class {
     }
 
     async fetchAndDisplay () {
-        const courses = await this.fetchCourses();
-        this.displayResults(courses);
+        this.coursesWordpress = await this.fetchWordpressCourses();
+        console.log(this.coursesWordpress);
+        this.courses = await this.fetchCourses();
+        this.displayResults(this.courses);
+    }
+
+    getCourseCode(courseCode) {
+        courseCode = courseCode.split('.')[0];
+        console.log(courseCode);
+        const results = this.coursesWordpress.filter(course => {
+            return course.title.rendered.toUpperCase().includes(courseCode.toUpperCase())
+        });
+        console.log(results);
+        if (results.length === 1) {
+            return results[0].id;
+        }
+        return null;
     }
 
 
@@ -44,13 +64,6 @@ window.CourseBrowser = class {
         for (let i = 0; i < courseList.length; i++) {
             const course = courseList[i];
             if (course.Department == "CSCI") {
-                // const descUrl = 'https://meteor.unca.edu/registrar/class-schedules/api/v1/courses/description/';
-                // let desc = await fetch(descUrl + termUrl + course.CRN + '/').then(response => response.text());
-                // desc = desc.replaceAll("\"", "");
-                // desc = desc.replaceAll("\\n", "");
-                // desc = desc.replaceAll("\\r", "");
-                // course.Description = desc;
-                // this.addToInventory(course);
                 this.displayCourse(course);
             }
         }
@@ -70,6 +83,14 @@ window.CourseBrowser = class {
 
     toJSON() {
         console.log(JSON.stringify(this.courses));
+    }
+
+    getMoreInfo(code) {
+        const postId = this.getCourseCode(code);
+        if (postId) {
+            return `<button class="link" onclick="showCourse(${postId})">More Info</a>`;
+        }
+        return '';
     }
 
     displayCourse(course) {
@@ -100,7 +121,7 @@ window.CourseBrowser = class {
                     ${course.Hours} credit hour(s)
                 </p>
                 <p><strong>${instructor}</strong></p>
-
+                ${ this.getMoreInfo(course.Code) }
                 <!-- <p>${course.Description}</p> -->
             </section>`;
         try {

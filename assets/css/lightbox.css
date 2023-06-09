@@ -1,3 +1,10 @@
+.tag {
+    border-radius: 6px;
+    margin: 10px 10px 0px 0px;
+    padding: 5px 10px;
+    background-color: #F0F0F0;
+}
+
 #lightbox {
     box-sizing: border-box;
     min-height: 100vh;

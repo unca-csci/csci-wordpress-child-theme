@@ -1,11 +1,17 @@
 <?php
 
+/******************************
+ * Code for Custom Shortcodes *
+ ******************************/
 require_once( __DIR__ . '/inc/functions-people.php');
 require_once( __DIR__ . '/inc/functions-cs-areas.php');
+require_once( __DIR__ . '/inc/functions-class-schedule.php');
 require_once( __DIR__ . '/inc/functions-courses.php');
 
 
-
+/************************
+ * Code for Child Theme *
+ ************************/
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
@@ -30,7 +36,10 @@ add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
 
 // END ENQUEUE PARENT ACTION
 
-// Disable Comments:
+
+/*********************************************
+ * Code to Disable Comments / Unneeded Menus *
+ *********************************************/
 
 
 // Removes from admin menu
@@ -55,7 +64,9 @@ add_action( 'wp_before_admin_bar_render', 'mytheme_admin_bar_render' );
 // End disable comments
 
 
-
+/****************************
+ * Code to Add a Body Class *
+ ****************************/
 
 // Add custom body class using Advanced Custom Fields:
 add_filter( 'body_class', 'custom_body_class' );

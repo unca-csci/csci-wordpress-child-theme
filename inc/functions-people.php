@@ -69,7 +69,7 @@ function shortcode_people_card($atts) {
         '<p class="span-2">' .
             // '<a class="more-link" href="' . get_permalink($post) . '">More</a>' .
             // '<a class="more-link" href="/wp-json/wp/v2/people/' . $post->ID .
-            '<button class="more-link" onclick="showLightbox(' . $post->ID . ')">More</button>' . 
+            '<button class="more-link" onclick="showPerson(' . $post->ID . ')">More</button>' . 
         '</p>';
     $html = $html . '</div>';
     return $html;
@@ -94,7 +94,7 @@ function shortcode_people_card_list() {
         wp_reset_postdata();
     }
 
-    $script_ref = '<script src="' . get_stylesheet_directory_uri() . '/assets/js/people.js"></script>';
+    $script_ref = '<script type="module" src="' . get_stylesheet_directory_uri() . '/assets/js/lightbox.js"></script>'; 
     $css_ref = '<link rel="stylesheet" href="' . get_stylesheet_directory_uri() . '/assets/css/lightbox.css">';
     return '<div class="people-list">' . 
         implode( '', $html_elements ) . 

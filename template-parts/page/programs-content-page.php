@@ -61,21 +61,31 @@ $cover_height = inspiro_get_theme_mod( 'cover-size' );
         <aside id="secondary" class="widget-area" role="complementary">
             <div class="programs-submenu">
                 <h2>Learning CS at UNCA</h2>
+                <h3>For Prospective Students</h3>
                 <ul>
                     <li>
-                        <a href="/our-programs">Our Programs</a>
+                        <a href="/our-programs">Majoring / Minoring in CS</a>
                     </li>
                     <li>
-                        <a href="/our-programs/requirements">Course Offerings</a>
+                        <a href="/cs-areas">Areas of Computer Science</a>
                     </li>
+                    <li>
+                        <a href="/our-programs/about-the-capstone">About the Capstone</a>
+                    </li>
+                    <li>
+                        <a href="/our-programs/faqs/">FAQs</a>
+                    </li>
+                </ul>
+                <h3>For Current Students</h3>
+                <ul>
                     <li>
                         <a href="/our-programs/schedule-of-classes">Schedule of Classes</a>
                     </li>
                     <li>
-                        <a href="/our-programs/sample-plans">Sample Course Plans</a>
+                        <a href="/our-programs/course-offerings">Course Offerings</a>
                     </li>
                     <li>
-                        <a href="/our-programs/about-the-capstone">About the Capstone</a>
+                        <a href="/our-programs/sample-plans">Sample Course Plans</a>
                     </li>
                     <li>
                         <a href="/our-programs/student-projects">Student Projects</a>
