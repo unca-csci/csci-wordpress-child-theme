@@ -64,10 +64,10 @@ $cover_height = inspiro_get_theme_mod( 'cover-size' );
                 <h3>For Prospective Students</h3>
                 <ul>
                     <li>
-                        <a href="/our-programs">Majoring / Minoring in CS</a>
+                        <a href="/cs-areas">What is Computer Science?</a>
                     </li>
                     <li>
-                        <a href="/cs-areas">Areas of Computer Science</a>
+                        <a href="/our-programs">Majoring / Minoring in Computer Science</a>
                     </li>
                     <li>
                         <a href="/our-programs/about-the-capstone">About the Capstone</a>

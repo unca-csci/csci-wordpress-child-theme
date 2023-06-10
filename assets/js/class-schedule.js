@@ -44,14 +44,25 @@ window.CourseBrowser = class {
         console.log(this.peopleWordpress);
     }
 
-    getCourseId(courseCode) {
-        courseCode = courseCode.split('.')[0];
-        console.log(courseCode);
-        const results = this.coursesWordpress.filter(course => {
-            return course.title.rendered.toUpperCase().includes(courseCode.toUpperCase())
+
+    getCourseId(course) {
+
+        function matchScore(title, tokens) {
+            const matches = tokens.filter(token => title.includes(token));
+            return matches.length / tokens.length;
+        }
+        const code = course.Code.split('.')[0];
+        const title = course.Title.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        const tokens = title.split(' ');
+        const results = this.coursesWordpress.filter(courseWP => {
+            const currentCode = courseWP.title.rendered.toUpperCase();
+            const currentTitle = courseWP.acf.title.toUpperCase();
+            const score = matchScore(currentTitle, tokens);
+            return currentCode.includes(code.toUpperCase()) &&
+                score > 0.5;
         });
         console.log(results);
-        if (results.length === 1) {
+        if (results.length > 0) {
             return results[0].id;
         }
         return null;
@@ -111,11 +122,11 @@ window.CourseBrowser = class {
     }
 
     getTitle(course) {
-        const postId = this.getCourseId(course.Code);
+        const postId = this.getCourseId(course);
         if (postId) {
             return `
                 <h3>
-                    <a href="#" onclick="showCourse(${postId});return false;">${course.Code}</a>: ${course.Title}
+                    <a href="#" class="link" onclick="showCourse(${postId});return false;">${course.Code}</a> ${course.Title}
                 </h3>`;
         }
         return `<h3>${course.Code}: ${course.Title}</h3>`;
@@ -131,7 +142,7 @@ window.CourseBrowser = class {
         
         if (postId) {
             return `
-                <a href="#" onclick="showPerson(${postId});return false;">${instructor}</a>`;
+                <a href="#" class="link" onclick="showPerson(${postId});return false;">${instructor}</a>`;
         }
         return `<strong>${instructor}</strong>`;
 

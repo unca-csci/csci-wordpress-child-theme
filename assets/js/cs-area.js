@@ -62,8 +62,8 @@ export default class Area {
     
     getFeaturedImage() {
         return this.featuredImageUrl ?
-            `<img class="people-thumb" src="${this.featuredImageUrl}" />`
+            `<img src="${this.featuredImageUrl}" />`
             : '';
     }
-    
+
 }

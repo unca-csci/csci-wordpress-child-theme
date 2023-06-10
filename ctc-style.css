@@ -92,6 +92,15 @@ Updated: 2023-05-14 16:47:38
     height: 150px;
 }
 
+#menu-main-menu-1 li:last-child {
+    border: solid 3px white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#menu-main-menu-1 li:last-child:hover {
+    background: #FFFFFF66;
+}
+
 /****************************/
 /* Side Navigation (Mobile) */
 /****************************/
