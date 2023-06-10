@@ -5,7 +5,7 @@
  * the class and corresponding object.
  */
 
-import showLightbox from './lightbox.js';
+import './lightbox.js';
 
 window.CourseBrowser = class {
     courses = { };
@@ -20,6 +20,12 @@ window.CourseBrowser = class {
         return await response.json();
     }
 
+    async fetchWordpressPeople () {
+        const url = '/wp-json/wp/v2/people?per_page=100';
+        const response = await fetch(url);
+        return await response.json();
+    }
+
     async fetchCourses () {
         const baseScheduleUrl = 'https://meteor.unca.edu/registrar/class-schedules/api/v1/courses/';
         document.querySelector('#course-list').innerHTML = "Searching...";
@@ -30,16 +36,35 @@ window.CourseBrowser = class {
 
     async fetchAndDisplay () {
         this.coursesWordpress = await this.fetchWordpressCourses();
-        console.log(this.coursesWordpress);
+        this.peopleWordpress = await this.fetchWordpressPeople();
         this.courses = await this.fetchCourses();
         this.displayResults(this.courses);
+
+        console.log(this.coursesWordpress);
+        console.log(this.peopleWordpress);
     }
 
-    getCourseCode(courseCode) {
+    getCourseId(courseCode) {
         courseCode = courseCode.split('.')[0];
         console.log(courseCode);
         const results = this.coursesWordpress.filter(course => {
             return course.title.rendered.toUpperCase().includes(courseCode.toUpperCase())
+        });
+        console.log(results);
+        if (results.length === 1) {
+            return results[0].id;
+        }
+        return null;
+    }
+
+    getInstructorId(name) {
+        const [lastName, firstName] = name.split(', ');
+        console.log(lastName, firstName);
+        console.log(name);
+        const results = this.peopleWordpress.filter(person => {
+            console.log(person);
+            const title = person.title.rendered.toUpperCase();
+            return title.includes(lastName.toUpperCase()) && title.includes(firstName.toUpperCase())
         });
         console.log(results);
         if (results.length === 1) {
@@ -85,12 +110,31 @@ window.CourseBrowser = class {
         console.log(JSON.stringify(this.courses));
     }
 
-    getMoreInfo(code) {
-        const postId = this.getCourseCode(code);
+    getTitle(course) {
+        const postId = this.getCourseId(course.Code);
         if (postId) {
-            return `<button class="link" onclick="showCourse(${postId})">More Info</a>`;
+            return `
+                <h3>
+                    <a href="#" onclick="showCourse(${postId});return false;">${course.Code}</a>: ${course.Title}
+                </h3>`;
         }
-        return '';
+        return `<h3>${course.Code}: ${course.Title}</h3>`;
+    }
+
+    getInstructor(course) {
+        let instructor = 'Unknown';
+        let postId = null;
+        if (course.Instructors.length > 0) {
+            instructor = course.Instructors[0].Name;
+            postId = this.getInstructorId(instructor);
+        }
+        
+        if (postId) {
+            return `
+                <a href="#" onclick="showPerson(${postId});return false;">${instructor}</a>`;
+        }
+        return `<strong>${instructor}</strong>`;
+
     }
 
     displayCourse(course) {
@@ -109,7 +153,7 @@ window.CourseBrowser = class {
         const location = course.Location.FullLocation ? course.Location.FullLocation + " &bull;" : "";
         const template = `
             <section class="course">
-                <h3>${course.Code}: ${course.Title}</h3>
+                ${ this.getTitle(course) }
                 <p>
                     ${closed ? '<i class="fa-solid fa-circle-xmark"></i> Closed' : '<i class="fa-solid fa-circle-check"></i> Open'} 
                     &bull; ${course.CRN}
@@ -120,9 +164,7 @@ window.CourseBrowser = class {
                     ${ location }
                     ${course.Hours} credit hour(s)
                 </p>
-                <p><strong>${instructor}</strong></p>
-                ${ this.getMoreInfo(course.Code) }
-                <!-- <p>${course.Description}</p> -->
+                <p>${ this.getInstructor(course) }</p>
             </section>`;
         try {
             document.querySelector('#course-list').insertAdjacentHTML('beforeend', template);
