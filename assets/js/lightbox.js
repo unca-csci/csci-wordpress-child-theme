@@ -3,21 +3,21 @@ import Area from './cs-area.js';
 import Course from './course.js';
 
 window.showArea = async postID => {
-    const response = await fetch(`/wp-json/wp/v2/cs-areas/${postID}?_embed`);
+    const response = await fetch(`/wp-json/wp/v2/cs-areas/${postID}?_embed=1`);
     const data = await response.json();
     const area = new Area(data);
     showLightbox(area.getTemplate());
 }
 
 window.showPerson = async postID => {
-    const response = await fetch(`/wp-json/wp/v2/people/${postID}?_embed`);
+    const response = await fetch(`/wp-json/wp/v2/people/${postID}?_embed=1`);
     const data = await response.json();
     const person = new Person(data);
     showLightbox(person.getTemplate());
 }
 
 window.showCourse = async postID => {
-    const response = await fetch(`/wp-json/wp/v2/courses/${postID}?_embed`);
+    const response = await fetch(`/wp-json/wp/v2/courses/${postID}?_embed=1`);
     const data = await response.json();
     const course = new Course(data);
     showLightbox(course.getTemplate());

@@ -9,17 +9,12 @@ export default class Course {
         this.cs_areas = null;
         this.requirements = null;
         if (data.acf.prerequisites) {
-            this.prerequisites = data._embedded["acf:post"]
-                .filter(item => data.acf.prerequisites.includes(item.id))
-                .map(item => `${item.title.rendered}: ${item.acf.title}`);
+            this.prerequisites = data.acf.prerequisites.map(item => item.post_title);
         }
         if (data.acf.cs_areas) {
-            this.cs_areas = data._embedded["acf:post"]
-                .filter(item => data.acf.cs_areas.includes(item.id))
-                .map(item => {
-                    return { "id": item.id, "name": item.title.rendered }
-                });
+            this.cs_areas = data.acf.cs_areas.map(item => item.post_title);
         }
+        
         if (data.acf.major_minor_requirements && data.acf.major_minor_requirements.length > 0) {
             this.requirements = data.acf.major_minor_requirements;
         }
@@ -53,7 +48,7 @@ export default class Course {
         }
         return '<div>' + 
             this.cs_areas.map(item => {
-                return `<span class="tag">${ item.name }</span>`;
+                return `<span class="tag">${ item }</span>`;
             }).join('') + 
         '</div>';
     }

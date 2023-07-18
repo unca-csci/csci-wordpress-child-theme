@@ -123,9 +123,14 @@ body:not(.has-header-image) .site-main {
     margin-top: 105px;
 }
 
+.site-content {
+    min-height: 80vh;
+}
+
 body:not(.has-header-image) .site-main,
-.has-header-image .site-content-contain  {
-    margin-top: 150px;
+.has-header-image .site-content-contain,
+.elementor-template-full-width .site-content-contain {
+    margin-top: 150px !important;
 }
 
 .has-header-image.side-nav-open .site,

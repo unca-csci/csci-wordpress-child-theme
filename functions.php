@@ -87,3 +87,57 @@ function custom_body_class( array $classes ) {
 
 	return $classes;
 }
+
+
+
+
+
+
+// add_filter( 'acf/rest_api/recursive/types', function( $types ) {
+//     print_r(get_post_types());
+//     print_r($types);
+// 	// if ( isset( $types['course-groupings'] ) ) {
+// 	// 	unset( $types['course-groupings'] );
+// 	// }
+//     // if ( isset( $types['course'] ) ) {
+// 	// 	unset( $types['course'] );
+// 	// }
+//     // if ( isset( $types['post'] ) ) {
+// 	// 	unset( $types['post'] );
+// 	// }
+
+// 	return $types;
+//     // return array();
+// } );
+
+
+// add_filter( 'acf/rest/get_fields', function( $data ) {
+//     print_r($data);
+//     // if ( $response instanceof WP_REST_Response ) {
+//     //     $data = $response->get_data();
+//     // }
+//     foreach($data as $item){
+//         //if( isset( $item['acf'] ) ) {
+//             echo('!!!');
+//             // $data['acf']['shipping_address']->acf = get_fields( $data['acf']['shipping_address']->ID );
+//             $item['acf'] = 123;
+//         ///} 
+//     }
+//     return $data;
+// }, 10, 1 );
+
+
+
+
+
+
+
+
+
+// add_filter( 'acf/rest_api/recursive/types', function( $types ) {
+// 	if ( isset( $types['post'] ) ) {
+// 		unset( $types['post'] );
+// 	}
+
+// 	return $types;
+// } );

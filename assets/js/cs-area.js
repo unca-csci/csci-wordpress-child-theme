@@ -1,8 +1,9 @@
 export default class Area {
     
     constructor(data) {
+        console.log(data);
         this.name = data.title.rendered;
-        this.overview = data.acf.overview;
+        this.overview = data.acf.overview || 'TBD';
         this.careers = data.acf.careers;
         this.featuredImageUrl = null;
         this.faculty = null;
@@ -12,15 +13,11 @@ export default class Area {
             this.featuredImageUrl = data._embedded["wp:featuredmedia"][0].media_details.sizes.medium.source_url;
         }
         if (data.acf.associated_faculty) {
-            this.faculty = data._embedded["acf:post"]
-                .filter(item => data.acf.associated_faculty.includes(item.id))
-                .map(item => item.title.rendered)
+            this.faculty = data.acf.associated_faculty.map(item => item.post_title)
         }
 
         if (data.acf.course_offerings) {
-            this.courses = data._embedded["acf:post"]
-            .filter(item => data.acf.course_offerings.includes(item.id))
-            .map(item => `${item.title.rendered}: ${item.acf.title}`);
+            this.courses = data.acf.course_offerings.map(item => item.post_title);
         }
     }
 

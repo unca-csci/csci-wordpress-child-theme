@@ -3,8 +3,6 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: 30px;
     row-gap: 30px;
-    margin-top: 50px;
-    margin-bottom: 100px;
 }
 .areas section {
     min-height: 270px;

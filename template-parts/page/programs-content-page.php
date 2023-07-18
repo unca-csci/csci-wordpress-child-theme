@@ -51,7 +51,7 @@ $cover_height = inspiro_get_theme_mod( 'cover-size' );
 		echo '</div><!-- .entry-cover-image -->';
 	}
 	?>
-    <div class="entry-wrapper">
+    <div class="entry-wrapper right-menu">
         <div class="entry-content">
             <?php
                 the_content();
